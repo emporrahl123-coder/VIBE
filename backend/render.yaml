@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: rahl-backend
+    env: node
+    region: oregon  # or singapore, frankfurt, etc.
+    buildCommand: npm run render-build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: PROJECTS_DIR
+        value: /tmp/rahl-projects
+    disk:
+      name: rahl-storage
+      mountPath: /tmp/rahl-projects
+      sizeGB: 1
+    autoDeploy: true
+    healthCheckPath: /
